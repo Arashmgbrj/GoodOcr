@@ -1,0 +1,67 @@
+<div dir="rtl">
+  <header class="header-area header-sticky" [class.scrolled]="isScrolled">
+    <div class="floating-elements">
+      <div *ngFor="let element of floatingElements" 
+           class="floating-element"
+           [ngStyle]="{
+             'width': element.style.width,
+             'height': element.style.height,
+             'left': element.style.left,
+             'background': element.style.background,
+             'animation-delay': element.style.animationDelay,
+             'animation-duration': element.style.animationDuration
+           }"></div>
+    </div>
+    
+    <div class="container">
+      <div class="row align-items-center justify-content-between">
+        <!-- لوگو -->
+        <div class="col-auto">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <h4 style="margin:0; font-weight:bold;">Ocr</h4>
+            <div class="logo-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+          </a>
+        </div>
+
+        <!-- منو -->
+        <div class="col">
+          <ul class="nav justify-content-center" [class.active]="menuOpen">
+            <li class="scroll-to-section">
+              <a href="#top" 
+                 [class.active]="activeSection === 'home'"
+                 (click)="navigateToSection('home')">خانه</a>
+            </li>
+            <li class="scroll-to-section">
+              <a href="#features" 
+                 [class.active]="activeSection === 'features'"
+                 (click)="navigateToSection('features')">ویژگی ها</a>
+            </li>
+            <li class="scroll-to-section">
+              <a href="#services" 
+                 [class.active]="activeSection === 'services'"
+                 (click)="navigateToSection('services')">خدمات ما</a>
+            </li>
+            <li class="scroll-to-section">
+              <div class="main-blue-button">
+                <a href="/ocr" (click)="navigateToOCR()">استخراج دیتا</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- منوی موبایل -->
+        <div class="col-auto d-lg-none">
+          <div class="menu-trigger" 
+               [class.active]="menuOpen"
+               (click)="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>

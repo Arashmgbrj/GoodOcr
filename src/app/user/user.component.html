@@ -1,0 +1,241 @@
+
+<div class="container-scroller" dir="ltr">
+ 
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+     
+ 
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="nav-profile-img">
+                <img src="assets/images/avatar.gif" alt="image">
+                <span class="availability-status online"></span>
+              </div>
+              <div class="nav-profile-text">
+                <p class="mb-1 text-black">{{data['0'].username }}</p>
+              </div>
+            </a>
+        
+          </li>
+          <li>
+            <div style="cursor: pointer;" (click)="logout()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                  </svg>
+
+            </div>
+          
+
+          </li>
+       
+      
+        </ul>
+    
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper" style="background-color:#F2EDF3">
+      <!-- partial:partials/_sidebar.html -->
+ 
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-primary text-white me-2">
+                <i class="mdi mdi-home"></i>
+              </span> Dashboard
+            </h3>
+            <nav aria-label="breadcrumb">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="row">
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                  <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                  <h4 class="font-weight-normal mb-3">token counts <i class="mdi mdi-chart-line mdi-24px float-end"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ token_count }}</h2>
+                  <h6 class="card-text">maximom 4</h6>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+   
+         
+          <div class="row">
+            <div class="col-md-7 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Project Status</h4>
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th> # </th>
+                          <th> user_name </th>
+                          <th> token </th>
+                          <th> delete </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of tokens" >
+                          <td> {{ item.id }}</td>
+                          <td> {{ data["0"]?.username}}</td>
+                          <td>{{ item.token }} </td>
+                          <td (click)="deletetoken(item.id)">
+                            <svg style="color: red; cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                              <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                            </svg>
+                            
+                          </td>
+                          </tr>
+                
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title text-dark">Create Token</h4>
+                  <div class="add-items d-flex">
+                    <button (click) = "generatetoken()"  class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
+                  </div>
+                  <!-- <div class="list-wrapper">
+                    <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+                      <li>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox"> Meeting with Alisa </label>
+                        </div>
+                        <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li class="completed">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox" checked> Call John </label>
+                        </div>
+                        <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox"> Create invoice </label>
+                        </div>
+                        <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox"> Print Statements </label>
+                        </div>
+                        <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li class="completed">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox" checked> Prepare for presentation </label>
+                        </div>
+                        <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li>
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="checkbox" type="checkbox"> Pick up kids from school </label>
+                        </div>
+                        <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                    </ul>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container mt-5">
+            <div class="row justify-content-center">
+              <div class="col-md-8 col-lg-6">
+                <div class="card">
+                  <div class="card-header bg-primary text-white">
+                    <h4 class="card-title mb-0">Edit User Profile</h4>
+                  </div>
+                  <div class="card-body">
+                    <form (ngSubmit)="onSubmit()">
+                      <!-- Name Field -->
+                      <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          [(ngModel)]="user.username"
+                          name="name"
+                          required
+                        />
+                      </div>
+          
+                      <!-- Email Field -->
+                      <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          [(ngModel)]="user.email"
+                          name="email"
+                          disabled
+                          
+                          required
+                        />
+                      </div>
+          
+                      <!-- Address Field -->
+                      <div class="mb-3">
+                        <label for="address" class="form-label">Passwoard</label>
+                        <textarea
+                          class="form-control"
+                          id="address"
+                          [(ngModel)]="user.password"
+                          name="address"
+                          rows="3"
+                        ></textarea>
+                      </div>
+          
+                      <!-- Submit Button -->
+                      <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+  
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+
+<app-footer></app-footer>

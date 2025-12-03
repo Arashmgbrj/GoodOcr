@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هدر سه‌بعدی حرفه‌ای</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #007bff;
+            --primary-dark: #0062cc;
+            --secondary: #6c757d;
+            --dark: #1a1a2e;
+            --darker: #16213e;
+            --light: #f8f9fa;
+            --gradient: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+            --neon-glow: 0 0 10px rgba(0, 123, 255, 0.7), 0 0 20px rgba(0, 123, 255, 0.5), 0 0 30px rgba(0, 123, 255, 0.3);
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header-area {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(22, 33, 62, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-sticky {
+            animation: slideInDown 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        @keyframes slideInDown {
+            0% {
+                transform: translateY(-100%) rotateX(-90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0) rotateX(0);
+                opacity: 1;
+            }
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+        }
+
+        /* استایل لوگو */
+        .logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+        }
+
+        .logo:hover {
+            transform: translateZ(20px) rotateY(10deg);
+        }
+
+        .logo h4 {
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-glow);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .logo h4::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: width 0.5s ease;
+            box-shadow: var(--neon-glow);
+        }
+
+        .logo:hover h4::after {
+            width: 100%;
+        }
+
+        .logo-icon {
+            height: 50px;
+            margin-right: 15px;
+            filter: drop-shadow(0 0 8px rgba(0, 123, 255, 0.7));
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .logo:hover .logo-icon {
+            transform: translateZ(15px) rotate(15deg);
+            filter: drop-shadow(0 0 12px rgba(0, 123, 255, 0.9));
+        }
+
+        /* استایل منو */
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            transform-style: preserve-3d;
+        }
+
+        .nav li {
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .nav li a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.4s ease;
+            position: relative;
+            display: block;
+            transform-style: preserve-3d;
+        }
+
+        .nav li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 8px;
+            z-index: -1;
+            opacity: 0;
+            transform: translateZ(-10px) scale(0.8);
+            transition: all 0.4s ease;
+        }
+
+        .nav li a:hover::before,
+        .nav li a.active::before {
+            opacity: 1;
+            transform: translateZ(0) scale(1);
+            box-shadow: var(--neon-glow);
+        }
+
+        .nav li a:hover,
+        .nav li a.active {
+            color: white;
+            transform: translateZ(10px);
+        }
+
+        /* استایل دکمه اصلی */
+        .main-blue-button {
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .main-blue-button a {
+            background: var(--gradient);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: var(--neon-glow);
+            transition: all 0.5s ease;
+            display: block;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .main-blue-button a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .main-blue-button a:hover {
+            transform: translateZ(15px) scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        .main-blue-button a:hover::before {
+            right: 100%;
+        }
+
+        /* استایل منوی موبایل */
+        .menu-trigger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+        }
+
+        .menu-trigger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.7);
+        }
+
+        .menu-trigger.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg) translateZ(10px);
+        }
+
+        .menu-trigger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateZ(-10px);
+        }
+
+        .menu-trigger.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg) translateZ(10px);
+        }
+
+        /* محتوای نمونه */
+        .content {
+            margin-top: 120px;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-glow);
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) translateZ(20px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), var(--neon-glow);
+        }
+
+        .feature-card i {
+            font-size: 40px;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* ریسپانسیو */
+        @media (max-width: 992px) {
+            .nav {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background: rgba(22, 33, 62, 0.98);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                padding-top: 50px;
+                transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                backdrop-filter: blur(15px);
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+                transform-style: preserve-3d;
+            }
+
+            .nav.active {
+                right: 0;
+                transform: translateZ(0);
+            }
+
+            .nav li {
+                width: 80%;
+                text-align: center;
+                margin-bottom: 20px;
+                transform: translateX(50px);
+                opacity: 0;
+                transition: all 0.5s ease;
+            }
+
+            .nav.active li {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            .nav.active li:nth-child(1) { transition-delay: 0.1s; }
+            .nav.active li:nth-child(2) { transition-delay: 0.2s; }
+            .nav.active li:nth-child(3) { transition-delay: 0.3s; }
+            .nav.active li:nth-child(4) { transition-delay: 0.4s; }
+
+            .menu-trigger {
+                display: flex;
+            }
+        }
+
+        /* افکت‌های سه‌بعدی پیشرفته */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(0, 123, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100px) rotate(0deg) translateZ(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(360deg) translateZ(100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر سه‌بعدی -->
+    <header class="header-area header-sticky wow slideInDown">
+        <div class="floating-elements">
+            <div class="floating-element" style="width: 50px; height: 50px; left: 10%; animation-delay: 0s;"></div>
+            <div class="floating-element" style="width: 30px; height: 30px; left: 20%; animation-delay: 2s;"></div>
+            <div class="floating-element" style="width: 70px; height: 70px; left: 50%; animation-delay: 4s;"></div>
+            <div class="floating-element" style="width: 40px; height: 40px; left: 80%; animation-delay: 6s;"></div>
+            <div class="floating-element" style="width: 60px; height: 60px; left: 40%; animation-delay: 8s;"></div>
+        </div>
+        
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <!-- لوگو -->
+                <div class="col-auto">
+                    <a href="index.html" class="logo d-flex align-items-center">
+                        <h4 style="margin:0; font-weight:bold;">Ocr</h4>
+                        <div class="logo-icon">
+                            <i class="fas fa-eye" style="font-size: 40px;"></i>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- منو -->
+                <div class="col">
+                    <ul class="nav justify-content-center" id="mainMenu">
+                        <li class="scroll-to-section"><a href="#top" class="active">خانه</a></li>
+                        <li class="scroll-to-section"><a href="#features">ویژگی ها</a></li>
+                        <li class="scroll-to-section"><a href="#services">خدمات ما</a></li>
+                        <li class="scroll-to-section">
+                            <div class="main-blue-button"><a href="/ocr">استخراج دیتا</a></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- منوی موبایل -->
+                <div class="col-auto d-lg-none">
+                    <div class="menu-trigger" id="menuTrigger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- محتوای نمونه -->
+    <div class="content">
+        <h1>سیستم پیشرفته OCR</h1>
+        <p>با استفاده از هوش مصنوعی و فناوری‌های مدرن، متون را از تصاویر استخراج کنید</p>
+        
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-bolt"></i>
+                <h3>پردازش فوق سریع</h3>
+                <p>استخراج داده‌ها در کسری از ثانیه با دقت فوق‌العاده</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-brain"></i>
+                <h3>هوش مصنوعی پیشرفته</h3>
+                <p>تشخیص هوشمند متن با الگوریتم‌های یادگیری عمیق</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>امنیت بالا</h3>
+                <p>اطلاعات شما با بالاترین سطح امنیتی محافظت می‌شود</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // مدیریت منوی موبایل
+        const menuTrigger = document.getElementById('menuTrigger');
+        const mainMenu = document.getElementById('mainMenu');
+        
+        menuTrigger.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mainMenu.classList.toggle('active');
+        });
+
+        // بستن منو با کلیک روی لینک‌ها
+        const menuLinks = document.querySelectorAll('.nav a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                menuTrigger.classList.remove('active');
+                mainMenu.classList.remove('active');
+            });
+        });
+
+        // افکت اسکرول برای هدر
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header-area');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(22, 33, 62, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
+            } else {
+                header.style.background = 'rgba(22, 33, 62, 0.95)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            }
+        });
+
+        // ایجاد المان‌های شناور پویا
+        function createFloatingElements() {
+            const container = document.querySelector('.floating-elements');
+            const colors = [
+                'rgba(0, 123, 255, 0.1)',
+                'rgba(102, 16, 242, 0.1)',
+                'rgba(32, 201, 151, 0.1)',
+                'rgba(220, 53, 69, 0.1)'
+            ];
+            
+            for (let i = 0; i < 10; i++) {
+                const element = document.createElement('div');
+                const size = Math.random() * 60 + 20;
+                const left = Math.random() * 100;
+                const delay = Math.random() * 10;
+                const duration = Math.random() * 10 + 15;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                element.className = 'floating-element';
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${left}%`;
+                element.style.background = color;
+                element.style.animationDelay = `${delay}s`;
+                element.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(element);
+            }
+        }
+        
+        createFloatingElements();
+    </script>
+</body>
+</html>

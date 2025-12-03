@@ -1,0 +1,271 @@
+<div dir="rtl" class="ocr-container">
+  <!-- هدر سه‌بعدی حرفه‌ای -->
+  <header class="header-3d">
+    <div class="header-background">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+        <div class="shape shape-5"></div>
+      </div>
+    </div>
+    
+    <nav class="nav-3d">
+      <div class="nav-container">
+        <!-- لوگو سه‌بعدی -->
+        <a routerLink="/" class="logo-3d">
+          <div class="logo-inner">
+            <div class="logo-face logo-front">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div class="logo-face logo-back">
+              <i class="fas fa-text-height"></i>
+            </div>
+            <div class="logo-face logo-top"></div>
+            <div class="logo-face logo-bottom"></div>
+            <div class="logo-face logo-left"></div>
+            <div class="logo-face logo-right"></div>
+          </div>
+          <span class="logo-text">OCR VISION</span>
+        </a>
+
+        <!-- دکمه بازگشت -->
+        <a routerLink="/" class="back-btn-3d">
+          <div class="btn-inner">
+            <i class="fas fa-home"></i>
+            <span>بازگشت به خانه</span>
+          </div>
+          <div class="btn-shadow"></div>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- محتوای اصلی -->
+  <main class="main-content-3d">
+    <!-- کارت فرم سه‌بعدی -->
+    <div class="form-container-3d">
+      <div class="card-3d">
+        <div class="card-face card-front">
+          <div class="card-header-3d">
+            <div class="header-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h2 class="card-title">استخراج هوشمند متن</h2>
+            <p class="card-subtitle">Smart Text Extraction</p>
+          </div>
+
+          <form [formGroup]="ocrForm" (ngSubmit)="onSubmit()" class="ocr-form-3d">
+            <!-- انتخاب زبان با چک‌باکس واقعی -->
+            <div class="language-section">
+              <div class="section-header">
+                <i class="fas fa-globe-americas"></i>
+                <h3>انتخاب زبان / Select Language</h3>
+                <span class="selection-info">(می‌توانید هر دو را انتخاب کنید / You can select both)</span>
+              </div>
+              
+              <div class="checkbox-group">
+                <!-- چک‌باکس فارسی -->
+                <label class="checkbox-label" [class.selected]="selectedLanguages.includes('fas')">
+                  <input type="checkbox" 
+                         value="fas"
+                         [checked]="selectedLanguages.includes('fas')"
+                         (change)="onLanguageToggle($event, 'fas')"
+                         
+                         class="checkbox-input">
+                  <span class="checkbox-custom">
+                    <i class="fas fa-check check-icon"></i>
+                  </span>
+                  <span class="checkbox-content">
+                    <span class="language-flag">🇮🇷</span>
+                    <span class="language-text">
+                      <strong>فارسی / Persian</strong>
+                      <span class="language-desc">متن فارسی را استخراج کن</span>
+                    </span>
+                  </span>
+                </label>
+
+                <!-- چک‌باکس انگلیسی -->
+                <label class="checkbox-label" [class.selected]="selectedLanguages.includes('eng')">
+                  <input type="checkbox" 
+                         value="eng"
+                         [checked]="selectedLanguages.includes('eng')"
+                         (change)="onLanguageToggle($event, 'eng')"
+                         
+                         class="checkbox-input">
+                  <span class="checkbox-custom">
+                    <i class="fas fa-check check-icon"></i>
+                  </span>
+                  <span class="checkbox-content">
+                    <span class="language-flag">🇺🇸</span>
+                    <span class="language-text">
+                      <strong>انگلیسی / English</strong>
+                      <span class="language-desc">Extract English text</span>
+                    </span>
+                  </span>
+                </label>
+              </div>
+
+              <!-- نمایش زبان‌های انتخاب شده -->
+              <div *ngIf="selectedLanguages.length > 0" class="selected-languages-display">
+                <div class="selected-badge">
+                  <i class="fas fa-check-circle"></i>
+                  <span>
+                    زبان‌های انتخاب شده: 
+                    <strong>{{ getSelectedLanguagesText() }}</strong>
+                  </span>
+                </div>
+                <div class="selection-hint" *ngIf="selectedLanguages.length === 2">
+                  <i class="fas fa-info-circle"></i>
+                  هر دو زبان انتخاب شده‌اند - سیستم به طور خودکار تشخیص می‌دهد
+                </div>
+              </div>
+
+              <!-- نمایش خطا -->
+              <div *ngIf="selectedLanguages.length === 0 && ocrForm.get('language')?.touched" 
+                   class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                لطفا حداقل یک زبان انتخاب کنید / Please select at least one language
+              </div>
+            </div>
+
+            <!-- بخش آپلود تصویر -->
+            <div class="upload-section-3d">
+              <div class="section-header">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <h3>آپلود تصویر / Upload Image</h3>
+              </div>
+              
+              <div class="upload-box-3d" [class.has-file]="selectedFile">
+                <!-- آیکون اصلی -->
+                <div class="upload-icon-main">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                
+                <!-- متن راهنما -->
+                <div class="upload-text" *ngIf="!selectedFile">
+                  <h3>برای استخراج متن تصویر خود را انتخاب کنید</h3>
+                  <p>Select your image for text extraction</p>
+                  <p class="file-size-info">فرمت‌های پشتیبانی شده: JPG, PNG, JPEG | Max: 10MB</p>
+                </div>
+
+                <!-- پیشنمایش فایل -->
+                <div class="file-preview-box" *ngIf="selectedFile">
+                  <div class="preview-header">
+                    <i class="fas fa-check-circle success-icon"></i>
+                    <span>فایل انتخاب شده / File Selected</span>
+                  </div>
+                  <div class="file-details">
+                    <i class="fas fa-file-image file-type-icon"></i>
+                    <div class="file-info">
+                      <strong>{{ selectedFile.name }}</strong>
+                      <span>{{ getFileSize(selectedFile.size) }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- دکمه انتخاب فایل -->
+                <button type="button" class="upload-btn-3d" (click)="triggerFileInput()">
+                  <i class="fas fa-folder-open"></i>
+                  {{ selectedFile ? 'تغییر تصویر / Change Image' : 'انتخاب تصویر / Select Image' }}
+                </button>
+                
+                <input #fileInput type="file" (change)="onFileChange($event)" style="opacity: 0;"
+                       accept="image/*" class="file-input-hidden">
+              </div>
+
+              <!-- دکمه حذف فایل -->
+              <button type="button" class="remove-file-btn" *ngIf="selectedFile" 
+                      (click)="removeFile()">
+                <i class="fas fa-trash"></i>
+                حذف فایل / Remove File
+              </button>
+            </div>
+
+            <!-- دکمه ارسال -->
+            <button type="submit" class="submit-btn-3d" 
+                    [disabled]="selectedLanguages.length === 0 || !selectedFile || isLoading">
+              <div class="btn-content-3d">
+                <div class="btn-icon" *ngIf="!isLoading">
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <div class="btn-icon loading" *ngIf="isLoading">
+                  <i class="fas fa-spinner fa-spin"></i>
+                </div>
+                <span class="btn-text">
+                  {{ isLoading ? 'در حال پردازش... / Processing...' : 'استخراج متن / Extract Text' }}
+                </span>
+              </div>
+              <div class="btn-glow"></div>
+            </button>
+          </form>
+        </div>
+        
+        <!-- اضافه کردن سطوح سه‌بعدی کارت -->
+        <div class="card-face card-back"></div>
+        <div class="card-face card-top"></div>
+        <div class="card-face card-bottom"></div>
+        <div class="card-face card-left"></div>
+        <div class="card-face card-right"></div>
+      </div>
+    </div>
+
+    <!-- نتایج سه‌بعدی - خارج از کارت اصلی -->
+    <div *ngIf="isfetch" class="results-section-3d" >
+      <div class="results-container-3d">
+        <div class="results-header-3d">
+          <div class="results-title">
+            <i class="fas fa-star-of-life"></i>
+            <h2>نتایج استخراج / Extraction Results</h2>
+            <span class="results-badge">{{ results.length }} نتیجه / results</span>
+          </div>
+        </div>
+
+        <div class="results-grid-3d" >
+          <div *ngFor="let result of results; let i = index" 
+               class="result-card-3d"
+               [style.animation-delay]="i * 0.1 + 's'">
+            <div class="result-header">
+              <div class="result-number">
+                <span>#{{ i + 1 }}</span>
+              </div>
+              <h3>نتیجه {{ persianNumbers[i] }} / Result {{ i + 1 }}</h3>
+              <button class="copy-btn-3d" (click)="copyToClipboard(result.text)">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div class="result-content">
+              <textarea class="result-textarea-3d" readonly>{{ result.text }}</textarea>
+            </div>
+            <div class="result-footer">
+              <span class="char-count">{{ result.text.length }} کاراکتر / characters</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- اسپینر سه‌بعدی -->
+  <div *ngIf="isLoading" class="loading-3d" style="height: 300vh;">
+    <div class="spinner-3d">
+      <div class="spinner-core"></div>
+      <div class="spinner-ring ring-1"></div>
+      <div class="spinner-ring ring-2"></div>
+      <div class="spinner-ring ring-3"></div>
+      <div class="spinner-text">
+        <h3>در حال تحلیل تصویر / Analyzing Image</h3>
+        <p>لطفا چند لحظه صبر کنید... / Please wait a moment...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- افکت‌های پس‌زمینه -->
+  <div class="background-effects">
+    <div class="particles-container">
+      <div *ngFor="let particle of particles" class="particle"
+           [style]="particle.style"></div>
+    </div>
+  </div>
+</div>

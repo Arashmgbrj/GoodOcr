@@ -1,0 +1,337 @@
+
+    <style>
+        /* Basic styling for the forms */
+        
+        .page-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .form-v8-content {
+            display: flex;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            width: 800px;
+        }
+        .form-left {
+            flex: 1;
+        }
+        .form-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .form-right {
+            flex: 1;
+            padding: 40px;
+        }
+        .tab {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .tablinks {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #333;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        .tablinks:hover {
+            text-decoration: underline;
+        }
+        .tablinks.active {
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        .form-detail {
+            display: none;
+        }
+        .form-detail.active {
+            display: block;
+        }
+        .form-row {
+            margin-bottom: 20px;
+        }
+        .form-row-inner {
+            position: relative;
+        }
+        .input-text {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            color: #999;
+        }
+        .input-text:focus + .label,
+        .input-text:not(:placeholder-shown) + .label {
+            top: -10px;
+            left: 5px;
+            font-size: 12px;
+            color: #333;
+        }
+        .register {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        .register:hover {
+            background: #0056b3;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .input-group {  
+    display: flex;  
+    justify-content: space-between;  
+    margin: 20px 0;  
+}  
+
+input[type="number"] {  
+    width: 40px;  
+    height: 40px;  
+    text-align: center;  
+    font-size: 24px;  
+    border: 2px solid #007bff;  
+    border-radius: 5px;  
+    outline: none;  
+    transition: border-color 0.3s;  
+}  
+
+input[type="number"]:focus {  
+    border-color: #0056b3;  
+}  
+
+button {  
+    padding: 10px 20px;  
+    background-color: #007bff;  
+    color: white;  
+    border: none;  
+    border-radius: 5px;  
+    cursor: pointer;  
+    font-size: 16px;  
+}  
+
+button:disabled {  
+    background-color: #ccc;  
+}
+    </style>
+
+
+    <div class="page-content">
+        <div class="form-v8-content">
+            <div class="form-left">
+                <img class="d-xl-inline d-none "src="http://localhost:4200/assets/images/form-v8.jpg" alt="form">
+            </div>
+            <div class="form-right">
+                <div class="tab">
+                    <div class="tab-inner">
+                        <button class="tablinks " onclick="Tform('sign-up')" id="sign-up-btn">Sign Up</button>
+                    </div>
+                    <div class="tab-inner">
+                        <button class="tablinks active " onclick="Tform('sign-in') " id="sign-in-btn">Sign In</button>
+                    </div>
+                </div>
+
+                <!-- Sign Up Form -->
+                <form id="sign-up-form" class="form-detail " [formGroup]="myFormRegister" (ngSubmit)="onSubmitRegister()">  
+                    <div class="form-row">  
+                      <label class="form-row-inner">  
+                        <input type="text" formControlName="username" id="username" class="input-text" required>  
+                        <span class="label">Username</span>  
+                      </label>  
+                      <div class="error-message" *ngIf="myFormRegister.get('username')?.invalid && myFormRegister.get('username')?.touched">  
+                        Username is required.  
+                      </div>  
+                    </div>  
+                  
+                    <div class="form-row">  
+                      <label class="form-row-inner">  
+                        <input type="email" formControlName="email" id="email" class="input-text" required>  
+                        <span class="label">E-Mail</span>  
+                      </label>  
+                      <div class="error-message" *ngIf="myFormRegister.get('email')?.invalid && myFormRegister.get('email')?.touched">  
+                        A valid email is required.  
+                      </div>  
+                    </div>  
+                  
+                    <div class="form-row">  
+                      <label class="form-row-inner">  
+                        <input type="password" formControlName="password" id="password" class="input-text" required>  
+                        <span class="label">Password</span>  
+                      </label>  
+                      <div class="error-message" *ngIf="myFormRegister.get('password')?.invalid && myFormRegister.get('password')?.touched">  
+                        Password is required.  
+                      </div>  
+                    </div>  
+                  
+                    <div class="form-row">  
+                      <label class="form-row-inner">  
+                        <input type="password" formControlName="confirm_password" id="confirm_password" class="input-text" required>  
+                        <span class="label">Confirm Password</span>  
+                      </label>  
+                      <div class="error-message" *ngIf="myFormRegister.get('confirm_password')?.invalid && myFormRegister.get('confirm_password')?.touched">  
+                        Confirmation password is required.  
+                      </div>  
+                      <div class="error-message" *ngIf="myFormRegister.errors?.['mismatch'] && (myFormRegister.get('confirm_password')?.touched || myFormRegister.get('password')?.touched)">  
+                        Passwords do not match.  
+                      </div>  
+                    </div>  
+                  
+                    <div class="form-row-last">  
+                      <input type="submit" name="register" class="register" value="Register">  
+                    </div>  
+                  </form>
+                  <span style="color: red; font-weight: bold;">{{ msg }}</span>
+                  <!-- Change this from dot notation to bracket notation -->  
+                  <div *ngIf="is_active" style="text-align: center;">  
+                    <span style="color: green; font-weight: bold;">Activated Code</span>  
+                
+                    <form (ngSubmit)="onSubmit()" #numberForm="ngForm">  
+                        <div class="input-group">  
+                            <input  
+                                type="text"  
+                                maxlength="1"  
+                                (input)="onInput($event, 0)"  
+                                [ngModel]="code[0]"  
+                                name="code1"  
+                                required  
+                                pattern="[0-9]"  
+                                style="width: 40px; text-align: center;"  
+                            />  
+                            <input  
+                                type="text"  
+                                maxlength="1"  
+                                (input)="onInput($event, 1)"  
+                                [ngModel]="code[1]"  
+                                name="code2"  
+                                required  
+                                pattern="[0-9]"  
+                                style="width: 40px; text-align: center;"  
+                            />  
+                            <input  
+                                type="text"  
+                                maxlength="1"  
+                                (input)="onInput($event, 2)"  
+                                [ngModel]="code[2]"  
+                                name="code3"  
+                                required  
+                                pattern="[0-9]"  
+                                style="width: 40px; text-align: center;"  
+                            />  
+                            <input  
+                                type="text"  
+                                maxlength="1"  
+                                (input)="onInput($event, 3)"  
+                                [ngModel]="code[3]"  
+                                name="code4"  
+                                required  
+                                pattern="[0-9]"  
+                                style="width: 40px; text-align: center;"  
+                            />  
+                            <input  
+                                type="text"  
+                                maxlength="1"  
+                                (input)="onInput($event, 4)"  
+                                [ngModel]="code[4]"  
+                                name="code5"  
+                                required  
+                                pattern="[0-9]"  
+                                style="width: 40px; text-align: center;"  
+                            />  
+                        </div>  
+                
+                        <button type="submit" [disabled]="numberForm.invalid">Submit</button>  
+                    </form>  
+                
+                    <div *ngIf="showTimer">  
+                        <p>Next request can be made in: {{ timerValue }} seconds</p>  
+                    </div>  
+                  </div>
+               
+                     
+
+                <form id="sign-in-form" class="form-detail active" [formGroup]="signInForm" (ngSubmit)="onSignInSubmit()">
+                  <div class="form-row">
+      <label class="form-row-inner">
+        <input type="email" formControlName="email" id="login_email" class="input-text" required>
+        <span class="label">E-Mail</span>
+      </label>
+      <div class="error-message" *ngIf="signInForm.get('email')?.invalid && signInForm.get('email')?.touched">
+        A valid email is required.
+      </div>
+                  </div>
+                  <div class="form-row">
+      <label class="form-row-inner">
+        <input type="password" formControlName="password" id="login_password" class="input-text" required>
+        <span class="label">Password</span>
+      </label>
+      <div class="error-message" *ngIf="signInForm.get('password')?.invalid && signInForm.get('password')?.touched">
+        Password is required.
+      </div>
+                  </div>
+                  <div class="form-row-last">
+      <div class="d-flex flex-sm-row flex-column justify-content-sm-spacebetwen align-items-center ">
+        <button type="submit" class="register" [disabled]="signInForm.invalid">Sign In</button>
+        <a routerLink="/rememberpass" class="register" style="background-color: #007bff; margin-right:10px; padding: 10px;" >recyclepasswoard</a>
+
+      </div>              
+     
+
+      
+                  </div>
+                   </form>
+            </div>
+        </div>
+    </div>
+    <!-- <script>
+        console.log("arash moazame ggoodaraze");
+        
+        function Tform(formType) {
+    
+           const signUpForm = document.getElementById("sign-up-form");
+           const signInForm = document.getElementById("sign-in-form");
+           const signUpBtn = document.getElementById("sign-up-btn");
+           const signInBtn = document.getElementById("sign-in-btn");
+
+           if (formType === 'sign-up') {
+               signUpBtn.classList.add("active");
+               signInBtn.classList.remove("active");
+               signUpForm.classList.add("active");
+               signInForm.classList.remove("active");
+               
+           } else if (formType === 'sign-in') {
+               signUpBtn.classList.remove("active");
+               signInBtn.classList.add("active");
+               signUpForm.classList.remove("active");
+               signInForm.classList.add("active");
+             
+           }
+       }
+     
+    </script> -->
+
+  
